@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">TiendaApp</string>
+    <string name="stock_format">Disponibles: %d</string>
     <string name="default_notification_channel_id">default_channel</string>
     <string name="fcm_fallback_notification_channel_id">fcm_default_channel</string>
     <string name="cart_button_description">Carrito de compras</string>

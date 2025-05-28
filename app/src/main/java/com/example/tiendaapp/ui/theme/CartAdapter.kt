@@ -1,79 +1,74 @@
-package com.example.tiendaapp.ui.theme
-import android.util.Log;
+package com.example.tiendaapp.ui.adapter
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Button
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.GridLayoutManager
-import com.example.tiendaapp.data.model.Product
 import com.example.tiendaapp.R
 import com.example.tiendaapp.data.model.CartItem
-import com.example.tiendaapp.databinding.ItemCartBinding
 
 class CartAdapter(
-    private val cartItems: MutableList<CartItem>,
-    private val onQuantityChanged: (CartItem) -> Unit
+    private val onItemRemoved: (CartItem) -> Unit,
+    private val onQuantityChanged: (CartItem, Int) -> Unit
 ) : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
 
-    inner class CartViewHolder( val binding: ItemCartBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(item: CartItem) {
-            binding.txtCartItemName.text = item.name
-            binding.txtCartItemPrice.text = "$${"%.2f".format(item.totalPrice())}"
-            binding.txtQuantity.text = item.quantity.toString()
-
-            binding.btnIncrease.setOnClickListener {
-                // Listener para disminuir cantidad
-                binding.btnDecrease.setOnClickListener {
-                    if (item.quantity > 1) {
-                        item.quantity--
-                        binding.txtQuantity.text = item.quantity.toString()
-                        binding.txtCartItemPrice.text = "$${"%.2f".format(item.price * item.quantity)}"
-                        onQuantityChanged(item)
-                        Log.d("CartAdapter", "Decreased: ${item.name} to ${item.quantity}")
-                    }
-                }
-            }
-        }
-    }
+    private val items: MutableList<CartItem> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {
-        val binding = ItemCartBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
-        )
-        return CartViewHolder(binding)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_cart, parent, false)
+        return CartViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: CartViewHolder, position: Int) {
-        val item = cartItems[position]
-        holder.bind(item)
+        holder.bind(items[position])
+    }
 
-        holder.binding.btnIncrease.setOnClickListener {
-            item.quantity++
-            notifyItemChanged(position)
-            onQuantityChanged(item) // Esto reemplaza la llamada a updateTotalPrice
-        }
+    override fun getItemCount(): Int = items.size
 
-        holder.binding.btnDecrease.setOnClickListener {
-            if (item.quantity > 1) {
-                item.quantity--
-                notifyItemChanged(position)
-                onQuantityChanged(item) // Esto reemplaza la llamada a updateTotalPrice
-            }
+    // ✅ Método para actualizar toda la lista del carrito
+    fun updateCartItems(newItems: List<CartItem>) {
+        items.clear()
+        items.addAll(newItems)
+        notifyDataSetChanged()
+    }
+
+    // ✅ Método para actualizar un solo item del carrito
+    fun updateCartItem(updatedItem: CartItem) {
+        val index = items.indexOfFirst { it.productId == updatedItem.productId }
+        if (index != -1) {
+            items[index] = updatedItem
+            notifyItemChanged(index)
         }
     }
 
-    override fun getItemCount(): Int = cartItems.size
+    inner class CartViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val txtName: TextView = itemView.findViewById(R.id.txtCartItemName)
+        private val txtPrice: TextView = itemView.findViewById(R.id.txtCartItemPrice)
+        private val txtQuantity: TextView = itemView.findViewById(R.id.txtQuantity)
+        private val btnIncrease: Button = itemView.findViewById(R.id.btnIncrease)
+        private val btnDecrease: Button = itemView.findViewById(R.id.btnDecrease)
 
-    fun updateItems(newItems: List<CartItem>) {
-        cartItems.clear()
-        cartItems.addAll(newItems)
-        notifyDataSetChanged()
+        fun bind(cartItem: CartItem) {
+            txtName.text = cartItem.name
+            txtPrice.text = "$${cartItem.price}"
+            txtQuantity.text = cartItem.quantity.toString()
+
+            btnIncrease.setOnClickListener {
+                val newQuantity = cartItem.quantity + 1
+                onQuantityChanged(cartItem, newQuantity)
+            }
+
+            btnDecrease.setOnClickListener {
+                if (cartItem.quantity > 1) {
+                    val newQuantity = cartItem.quantity - 1
+                    onQuantityChanged(cartItem, newQuantity)
+                } else {
+                    onItemRemoved(cartItem)
+                }
+            }
+        }
     }
 }

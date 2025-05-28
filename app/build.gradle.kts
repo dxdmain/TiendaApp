@@ -42,6 +42,10 @@ android {
 }
 
 dependencies {
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
+    implementation ("com.google.android.gms:play-services-tasks:18.1.0")
+    implementation ("androidx.cardview:cardview:1.0.0")
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
     implementation ("com.google.android.gms:play-services-tasks:18.0.2")
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3")
     implementation ("com.google.android.gms:play-services-maps:18.1.0")

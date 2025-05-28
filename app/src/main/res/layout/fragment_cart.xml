@@ -3,56 +3,38 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="8dp">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewCart"
         android:layout_width="match_parent"
-        android:layout_height="103dp"
+        android:layout_height="0dp"
         android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/emptyCartView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="El carrito está vacío"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:padding="16dp"/>
 
     <TextView
         android:id="@+id/txtTotal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Total: $0.00"
-        android:textSize="18sp"/>
+        android:textSize="18sp"
+        android:padding="8dp" />
 
     <Button
         android:id="@+id/btnCheckout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Pagar"/>
-    <TextView
-        android:id="@+id/txtCartItemName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="2"
-        android:text="Nombre Producto"/>
-
-    <TextView
-        android:id="@+id/txtCartItemPrice"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="$0.00"/>
-
-    <Button
-        android:id="@+id/btnDecrease"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="-"/>
-
-    <TextView
-        android:id="@+id/txtQuantity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="1"/>
-
-    <Button
-        android:id="@+id/btnIncrease"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="+"/>
+        android:text="Pagar"
+        android:padding="12dp"/>
 
 </LinearLayout>

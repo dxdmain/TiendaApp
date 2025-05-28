@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
+    app:cardCornerRadius="8dp"
     app:cardElevation="4dp">
 
     <LinearLayout
@@ -12,34 +13,75 @@
         android:orientation="vertical"
         android:padding="12dp">
 
+        <!-- Placeholder de color -->
         <View
             android:id="@+id/colorPlaceholder"
-            android:layout_width="120dp"
+            android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:layout_gravity="center_horizontal"
-            android:background="@color/purple_200"/> <!-- Color de ejemplo -->
+            android:background="@color/purple_200"/>
 
+        <!-- Información del producto -->
         <TextView
             android:id="@+id/txtName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_marginTop="8dp"/>
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/txtPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/purple_500"
-            android:textSize="18sp"/>
+            android:textColor="@color/green_700"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/txtStock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray_600"
+            android:textSize="12sp"/>
+
+        <Button
+            android:id="@+id/btnEdit"
+            android:layout_width="158dp"
+            android:layout_height="43dp"
+            android:layout_weight="50"
+            android:background="@color/blue_500"
+            android:text="Editar"
+            android:textColor="@color/black" />
+
+        <!-- Botón principal -->
+
+        <Button
+            android:id="@+id/btnDelete"
+            android:layout_width="160dp"
+            android:layout_height="44dp"
+            android:layout_weight="50"
+            android:background="@color/red_500"
+            android:text="Eliminar"
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/btnAddToCart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Añadir al carrito"
+            android:textColor="@color/white"/>
+
+
+        <!-- Controles de admin (inicialmente ocultos) -->
+        <LinearLayout
+            android:id="@+id/adminControls"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Agregar al carrito"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
 
+
+
+        </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>
