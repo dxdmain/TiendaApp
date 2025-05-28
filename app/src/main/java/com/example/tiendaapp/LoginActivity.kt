@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.tiendaapp.ui.CameraDialogFragment
 import com.example.tiendaapp.databinding.ActivityLoginBinding
 import com.example.tiendaapp.ui.admin.AdminActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -66,6 +67,10 @@ class LoginActivity : AppCompatActivity() {
 
         binding.btnAdminPanel.setOnClickListener {
             startActivity(Intent(this, AdminActivity::class.java))
+        }
+        binding.btnOpenCameraDialog.setOnClickListener {
+            val cameraDialog = CameraDialogFragment()
+            cameraDialog.show(supportFragmentManager, "CameraDialog")
         }
     }
 
@@ -209,6 +214,7 @@ class LoginActivity : AppCompatActivity() {
             }
     }
 
+
     private fun createInitialUserDocument(uid: String) {
         val userData = hashMapOf(
             "uid" to uid,
@@ -246,4 +252,5 @@ class LoginActivity : AppCompatActivity() {
     companion object {
         private const val TAG = "LoginActivity"
     }
+
 }

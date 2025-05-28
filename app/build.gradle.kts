@@ -42,6 +42,11 @@ android {
 }
 
 dependencies {
+    implementation ("androidx.camera:camera-core:$")
+    implementation ("androidx.camera:camera-camera2:$")
+    implementation ("androidx.camera:camera-lifecycle:$")
+    implementation ("androidx.camera:camera-view:1.2.3")
+    implementation ("androidx.camera:camera-extensions:1.2.3")
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
     implementation ("com.google.android.gms:play-services-tasks:18.1.0")
     implementation ("androidx.cardview:cardview:1.0.0")
